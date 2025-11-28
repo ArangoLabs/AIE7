@@ -1,0 +1,296 @@
+<div id="ghl-countdown-frame">
+  <div id="ghl-countdown" aria-label="Cuenta regresiva">
+    <div class="digit" data-value="0">
+      <span class="segment a"></span>
+      <span class="segment b"></span>
+      <span class="segment c"></span>
+      <span class="segment d"></span>
+      <span class="segment e"></span>
+      <span class="segment f"></span>
+      <span class="segment g"></span>
+    </div>
+    <div class="digit" data-value="0">
+      <span class="segment a"></span>
+      <span class="segment b"></span>
+      <span class="segment c"></span>
+      <span class="segment d"></span>
+      <span class="segment e"></span>
+      <span class="segment f"></span>
+      <span class="segment g"></span>
+    </div>
+    <div class="colon" aria-hidden="true">
+      <span class="dot top"></span>
+      <span class="dot bottom"></span>
+    </div>
+    <div class="digit" data-value="0">
+      <span class="segment a"></span>
+      <span class="segment b"></span>
+      <span class="segment c"></span>
+      <span class="segment d"></span>
+      <span class="segment e"></span>
+      <span class="segment f"></span>
+      <span class="segment g"></span>
+    </div>
+    <div class="digit" data-value="0">
+      <span class="segment a"></span>
+      <span class="segment b"></span>
+      <span class="segment c"></span>
+      <span class="segment d"></span>
+      <span class="segment e"></span>
+      <span class="segment f"></span>
+      <span class="segment g"></span>
+    </div>
+    <div class="colon" aria-hidden="true">
+      <span class="dot top"></span>
+      <span class="dot bottom"></span>
+    </div>
+    <div class="digit" data-value="0">
+      <span class="segment a"></span>
+      <span class="segment b"></span>
+      <span class="segment c"></span>
+      <span class="segment d"></span>
+      <span class="segment e"></span>
+      <span class="segment f"></span>
+      <span class="segment g"></span>
+    </div>
+    <div class="digit" data-value="0">
+      <span class="segment a"></span>
+      <span class="segment b"></span>
+      <span class="segment c"></span>
+      <span class="segment d"></span>
+      <span class="segment e"></span>
+      <span class="segment f"></span>
+      <span class="segment g"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* =======================
+     CONFIGURABLE VARIABLES
+     Ajusta valores según necesites
+  ======================== */
+  :root {
+    --timer-bg: #000;
+    --timer-border: #bfc4cc;
+    --timer-glow: rgba(255, 255, 255, 0.12);
+    --segment-on: #e8e8e8;
+    --segment-off: #1c1c1c;
+    --segment-size: clamp(32px, 6vw, 64px);
+    --frame-radius: 14px;
+    --frame-padding: clamp(14px, 4vw, 22px);
+    --expired-bg: #2b0000;
+    --expired-border: #a33;
+  }
+
+  #ghl-countdown-frame {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    box-sizing: border-box;
+  }
+
+  #ghl-countdown {
+    position: relative;
+    display: flex;
+    gap: clamp(6px, 2vw, 12px);
+    align-items: center;
+    padding: var(--frame-padding);
+    background: var(--timer-bg);
+    border: 1.5px solid var(--timer-border);
+    border-radius: var(--frame-radius);
+    box-shadow: 0 0 0.8rem var(--timer-glow), inset 0 0 0.6rem rgba(255, 255, 255, 0.04);
+  }
+
+  #ghl-countdown.expired {
+    background: var(--expired-bg);
+    border-color: var(--expired-border);
+  }
+
+  .digit {
+    position: relative;
+    width: calc(var(--segment-size) * 0.7);
+    height: calc(var(--segment-size) * 1.6);
+    filter: drop-shadow(0 0 6px rgba(232, 232, 232, 0.15));
+  }
+
+  .segment {
+    position: absolute;
+    background: var(--segment-off);
+    border-radius: 4px;
+    transition: background 0.25s ease;
+  }
+
+  .segment.on { background: var(--segment-on); }
+
+  /* Seven-segment layout */
+  .segment.a { top: 0; left: 15%; right: 15%; height: 14%; }
+  .segment.b { top: 7%; right: 0; width: 14%; height: 44%; border-top-left-radius: 0; border-top-right-radius: 6px; }
+  .segment.c { bottom: 7%; right: 0; width: 14%; height: 44%; border-bottom-left-radius: 0; border-bottom-right-radius: 6px; }
+  .segment.d { bottom: 0; left: 15%; right: 15%; height: 14%; }
+  .segment.e { bottom: 7%; left: 0; width: 14%; height: 44%; border-bottom-left-radius: 6px; border-bottom-right-radius: 0; }
+  .segment.f { top: 7%; left: 0; width: 14%; height: 44%; border-top-left-radius: 6px; border-top-right-radius: 0; }
+  .segment.g { top: 43%; left: 15%; right: 15%; height: 14%; }
+
+  .colon {
+    position: relative;
+    width: calc(var(--segment-size) * 0.25);
+    height: calc(var(--segment-size) * 1.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: calc(var(--segment-size) * 0.25);
+    filter: drop-shadow(0 0 6px rgba(232, 232, 232, 0.1));
+  }
+
+  .colon .dot {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--segment-off);
+    border-radius: 50%;
+    transition: background 0.25s ease;
+  }
+
+  .colon .dot.on { background: var(--segment-on); }
+
+  /* Responsive tweaks */
+  @media (max-width: 540px) {
+    #ghl-countdown { gap: 6px; }
+    .digit { width: calc(var(--segment-size) * 0.62); }
+  }
+</style>
+
+<script>
+  (() => {
+    /* =======================
+       CONFIGURABLE VALUES
+       Cambia estos valores según tus necesidades.
+    ======================== */
+    const CONFIG = {
+      targetDateTime: '2024-11-29T23:59:00', // Fecha y hora objetivo (zona America/New_York)
+      timeZone: 'America/New_York',
+      colors: {
+        background: '#000',
+        border: '#bfc4cc',
+        glow: 'rgba(255, 255, 255, 0.12)',
+        segmentOn: '#e8e8e8',
+        segmentOff: '#1c1c1c',
+        expiredBackground: '#2b0000',
+        expiredBorder: '#a33'
+      },
+      fontSize: 'clamp(32px, 6vw, 64px)' // Controla la escala general
+    };
+
+    /* === Apply configurable styles === */
+    const root = document.documentElement;
+    root.style.setProperty('--timer-bg', CONFIG.colors.background);
+    root.style.setProperty('--timer-border', CONFIG.colors.border);
+    root.style.setProperty('--timer-glow', CONFIG.colors.glow);
+    root.style.setProperty('--segment-on', CONFIG.colors.segmentOn);
+    root.style.setProperty('--segment-off', CONFIG.colors.segmentOff);
+    root.style.setProperty('--expired-bg', CONFIG.colors.expiredBackground);
+    root.style.setProperty('--expired-border', CONFIG.colors.expiredBorder);
+    root.style.setProperty('--segment-size', CONFIG.fontSize);
+
+    const countdownEl = document.getElementById('ghl-countdown');
+    const digitEls = Array.from(countdownEl.querySelectorAll('.digit'));
+    const colonDots = Array.from(countdownEl.querySelectorAll('.colon .dot'));
+
+    const digitMap = {
+      0: ['a', 'b', 'c', 'd', 'e', 'f'],
+      1: ['b', 'c'],
+      2: ['a', 'b', 'g', 'e', 'd'],
+      3: ['a', 'b', 'g', 'c', 'd'],
+      4: ['f', 'g', 'b', 'c'],
+      5: ['a', 'f', 'g', 'c', 'd'],
+      6: ['a', 'f', 'g', 'c', 'd', 'e'],
+      7: ['a', 'b', 'c'],
+      8: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+      9: ['a', 'b', 'c', 'd', 'f', 'g']
+    };
+
+    function setDigit(digitEl, value) {
+      const segments = digitEl.querySelectorAll('.segment');
+      segments.forEach(seg => seg.classList.remove('on'));
+      (digitMap[value] || []).forEach(key => {
+        const active = digitEl.querySelector(`.segment.${key}`);
+        if (active) active.classList.add('on');
+      });
+    }
+
+    function getTimeZoneOffset(date, timeZone) {
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+      const parts = formatter.formatToParts(date).reduce((acc, part) => {
+        if (part.type !== 'literal') acc[part.type] = part.value;
+        return acc;
+      }, {});
+      const asUTC = Date.UTC(
+        Number(parts.year),
+        Number(parts.month) - 1,
+        Number(parts.day),
+        Number(parts.hour),
+        Number(parts.minute),
+        Number(parts.second)
+      );
+      return asUTC - date.getTime();
+    }
+
+    function zonedTimeToUtc({ year, month, day, hour, minute, second = 0 }, timeZone) {
+      const utcGuess = Date.UTC(year, month - 1, day, hour, minute, second);
+      const offset = getTimeZoneOffset(new Date(utcGuess), timeZone);
+      return new Date(utcGuess - offset);
+    }
+
+    function parseTarget(dateTimeStr, timeZone) {
+      const [datePart, timePart = '00:00:00'] = dateTimeStr.split('T');
+      const [year, month, day] = datePart.split('-').map(Number);
+      const [hour = 0, minute = 0, second = 0] = timePart.split(':').map(Number);
+      return zonedTimeToUtc({ year, month, day, hour, minute, second }, timeZone);
+    }
+
+    const targetDate = parseTarget(CONFIG.targetDateTime, CONFIG.timeZone);
+
+    function updateClock() {
+      const now = Date.now();
+      let diff = targetDate.getTime() - now;
+      const expired = diff <= 0;
+
+      if (expired) diff = 0;
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      const values = [
+        Math.floor(hours / 10) % 10,
+        hours % 10,
+        Math.floor(minutes / 10),
+        minutes % 10,
+        Math.floor(seconds / 10),
+        seconds % 10
+      ];
+
+      digitEls.forEach((digitEl, index) => setDigit(digitEl, values[index]));
+      colonDots.forEach(dot => dot.classList.add('on'));
+
+      if (expired) {
+        countdownEl.classList.add('expired');
+        clearInterval(timerId);
+      }
+    }
+
+    const timerId = setInterval(updateClock, 1000);
+    updateClock();
+  })();
+</script>
